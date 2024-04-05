@@ -52,6 +52,24 @@ padding: 5px;
     padding: 9px;
     align-items: center;
 }
+.ModalCloseBtn{
+    background: rgb(67, 145, 175);
+    color: white;
+    outline: none;
+    border:1px solid rgb(67, 145, 175);;
+    border-radius: 1px;
+    width: 50px;
+    height: 20px;
+}
+.ModalCancelBtn{
+    background:white;
+    color: balck;
+    outline: none;
+    border:1px solid rgb(67, 145, 175);;
+    border-radius: 1px;
+    width: 50px;
+    height: 20px;
+}
 /* .darken-background {
     position: fixed;
     top: 0;
@@ -64,7 +82,7 @@ padding: 5px;
     z-index: 999;
   } */
 
-  .darken-background {
+  /* .darken-background {
       position: fixed;
       text-align: center;
       justify-content: center;
@@ -74,4 +92,5 @@ padding: 5px;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
       z-index: 999;
-  }
+  } */
+  

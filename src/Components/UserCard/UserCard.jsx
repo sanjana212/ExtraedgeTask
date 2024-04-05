@@ -7,15 +7,26 @@ import { CiEdit } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
 import Loader from "../Loader/Loader";
 import { CiGlobe } from "react-icons/ci";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { UserData, deleteUser } from "../../Reducers/UserReducer";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import ReactModal from "react-modal";
 import LoaderModal from "../../LoaderModal/Loader";
-
-
+import UserForm from "../UserForm/UserForm";
+import Modal from "react-modal";
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 const UserCard = () => {
   const [showLoader, SetShowLoader] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   useEffect(() => {
@@ -30,14 +41,25 @@ const UserCard = () => {
     })
       .then((res) => res.json())
       .then((userData) => {
-        dispatch(UserData(userData))
-        SetShowLoader(false)
+        dispatch(UserData(userData));
+        SetShowLoader(false);
       });
   }, []);
 
-  const handleDelete=(userId)=>{
-    console.log("userId",userId);
-   dispatch(deleteUser(userId))
+  const handleDelete = (userId) => {
+    console.log("userId", userId);
+    dispatch(deleteUser(userId));
+  };
+
+  function openModal() {
+    setIsOpen(true);
+  }
+  // function afterOpenModal(hi) {
+  //   // references are now sync'd and can be accessed.
+  //   hi.style.color = "#f00";
+  // }
+  function closeModal() {
+    setIsOpen(false);
   }
   return (
     <div className="container">
@@ -61,7 +83,7 @@ const UserCard = () => {
             </div>
             <div className="UserInfoSubDiv">
               <div>
-              <CiGlobe />
+                <CiGlobe />
               </div>
               <div>{user.website}</div>
             </div>
@@ -75,26 +97,33 @@ const UserCard = () => {
             </div>
             <div className="BottomDivSubDiv">
               <span>
-                <CiEdit />
+                <CiEdit onClick={openModal} />
               </span>
               <div className="verticleLine"></div>
             </div>
             <div className="BottomDivSubDiv">
               <span>
-                <FaRegTrashCan onClick={()=>handleDelete(user.id)}/>
+                <FaRegTrashCan onClick={() => handleDelete(user.id)} />
               </span>
               <div></div>
             </div>
           </div>
         </div>
       ))}
-       {/* {showLoader ? (
-        <div className={showLoader?'darken-background' : ''}>
-          <Loader />
-        </div>
-      ) : (
-        <></>
-      )} */}
+
+      <Modal
+        isOpen={modalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+       <UserForm/>
+       <div style={{position:'relative',float:'right'}}> 
+       <button onClick={closeModal} className="ModalCancelBtn">cancel</button>&nbsp;
+       <button onClick={closeModal} className="ModalCloseBtn">close</button>
+       </div>
+      </Modal>
       <LoaderModal setLoader={showLoader} />
     </div>
   );

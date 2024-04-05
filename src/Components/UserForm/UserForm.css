@@ -1,0 +1,17 @@
+.FormWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 400px;
+    height: 150px;
+}
+
+.FormLabelInput {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    margin-bottom: 15px;
+}
+.FormLabelInput input{
+    outline: none;
+}

@@ -2,7 +2,6 @@ import React, { useEffect,useState } from 'react'
 import './Loader.css'
 import ReactModal from "react-modal";
 import LoaderDesign from '../Components/Loader/Loader';
-import { AiOutlineClose } from "react-icons/ai";
 const LoaderModal = (props) => {
     const customStyles = {
         content: {
