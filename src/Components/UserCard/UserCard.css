@@ -9,7 +9,7 @@
 .cardMain{
     border: 1px solid gray;
     /* height: 55vh; */
-    width: 300px;
+    width: 24%;
     border-radius: 5px;
 }
 .UserInfo{
@@ -55,7 +55,25 @@ padding: 5px;
     color:  red;
     font-size: 25px;
     cursor: pointer;
-}                 
+}     
+.ciEditHover:hover{
+    color: rgb(67, 145, 175);
+} 
+.ModelHeader{
+    display: flex;
+    justify-content: space-between;
+    padding:0 10px 10px 10px;
+    border-bottom: 1px solid gray;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    
+} 
+.ModelHeader div:nth-child(2){
+    cursor: pointer;
+}   
+.ReactModal__Overlay{
+    backdrop-filter: brightness(0.3);
+}      
 /* .darken-background {
     position: fixed;
     top: 0;

@@ -70,12 +70,12 @@ const UserCard = () => {
   }, []);
 
   // useEffect(() => {
-  //   // setShowLoader(true);
   //   users.forEach((user) => {
   //     const url = `https://avatars.dicebear.com/v2/avataaars/${user.username}.svg?options[mood][]=happy`;
-  //     console.log("url", url);
+  //     const UpdatedUrl = `https://api.dicebear.com/8.x/${user.username}/svg`
+  //     console.log("url", UpdatedUrl);
 
-  //     fetch(url)
+  //     fetch(UpdatedUrl)
   //       .then((res) => res.blob()) // Fetch the response as a blob
   //       .then((blob) => {
   //         const imageUrl = URL.createObjectURL(blob); // Create object URL for the blob
@@ -86,7 +86,6 @@ const UserCard = () => {
   //         console.error("Error fetching avatar:", error);
   //       });
   //   });
-  //   // setShowLoader(false);
   // }, []);
   console.log("isFilled", isFilled)
   return (
@@ -94,7 +93,7 @@ const UserCard = () => {
       {users.map((user, id) => (
         <div className="cardMain" key={user.id}>
           <div className="Avtar">
-            <img src="" alt="avtar" />
+            <img src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${user.name}`} alt="avtar" height={200} />
           </div>
           <div className="UserInfo">
             <div className="UserInfoSubDiv">
@@ -135,12 +134,12 @@ const UserCard = () => {
 
             </div>
             <div className="BottomDivSubDiv">
-              <CiEdit onClick={() => openModal(user)} style={{ fontSize: '25px' }} />
+              <CiEdit onClick={() => openModal(user)} style={{ fontSize: '25px' }} className="ciEditHover" />
               <div className="verticleLine"></div>
             </div>
             <div className="BottomDivSubDiv_Delete">
               <span>
-                <FaRegTrashCan onClick={() => handleDelete(user.id)} />
+                <FaRegTrashCan onClick={() => handleDelete(user.id)} className="ciEditHover" />
               </span>
             </div>
           </div>
@@ -154,6 +153,10 @@ const UserCard = () => {
         style={customStyles}
         contentLabel="Example Modal"
       >
+        <div className="ModelHeader">
+          <div>Update Data</div>
+          <div onClick={closeModal}>X</div>
+        </div>
         <UserForm data={editUser} closeModal={closeModal} />
       </Modal>
       <LoaderModal setLoader={showLoader} />
