@@ -84,7 +84,16 @@ padding: 5px;
         padding: 0;
     }
     .cardMain {
-        width: 31%;
+        width: 27%;
+    }
+    .BottomDivSubDiv{
+        margin: 0;
+        width: 20%;
+    }
+    .BottomDivSubDiv_Delete{
+        width: 20%;
+        margin: 0;
+        font-size: 7px;
     }
 
 }    
