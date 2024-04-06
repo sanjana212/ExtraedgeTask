@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 400px;
-    height: 150px;
+     width: 400px; 
+    /* height: 0px; */ 
 }
 
 .FormLabelInput {
@@ -11,7 +11,44 @@
     justify-content: space-around;
     margin-bottom: 10px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 .FormLabelInput input{
     outline: none;
+    width: 67%;
+    border-radius: 5px;
+    border: 1px solid #9c9393;
+    height: 30px;
+}
+.FormLabelInput input:focus{
+    border: 1px solid  rgb(67, 145, 175);
+}
+.ModalCloseBtn{
+    background: rgb(67, 145, 175);
+    color: white;
+    outline: none;
+    border:1px solid rgb(67, 145, 175);;
+       width: 80px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.ModalCancelBtn{
+    background:white;
+    color: balck;
+    outline: none;
+    border:1px solid rgb(67, 145, 175);;
+    width: 80px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.formBtnDiv{
+    display: flex;
+    justify-content: right;
+    width: 96%;
+}
+.FormLabelInput label::before{
+    content: ' *';
+color: red;
 }

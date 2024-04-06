@@ -1,7 +1,6 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Loader.css'
 import ReactModal from "react-modal";
-import LoaderDesign from '../Components/Loader/Loader';
 const LoaderModal = (props) => {
     const customStyles = {
         content: {
@@ -15,38 +14,38 @@ const LoaderModal = (props) => {
             transform: 'translate(-50%, -50%)',
             borderRadius: "4px",
             overflow: 'hidden',
-            padding:'5px 0 0 0',
-            border:"none",
-            background:"transparent"
-            
-            
+            padding: '5px 0 0 0',
+            border: "none",
+            background: "transparent"
+
+
         },
     };
     const style = {
         width: "45%"
     };
 
-    useEffect(()=>{
-        props.setLoader==true?
-        LoaderOpen():LoaderClose()
-    },[props.setLoader])
-      //Loader Function
-    const[Loader,setLoader]=useState({
-        isOpen:false,
-        onRequestClose:""
+    useEffect(() => {
+        props.setLoader == true ?
+            LoaderOpen() : LoaderClose()
+    }, [props.setLoader])
+    //Loader Function
+    const [Loader, setLoader] = useState({
+        isOpen: false,
+        onRequestClose: ""
 
     })
-     const LoaderClose=()=>{
+    const LoaderClose = () => {
         setLoader({
-            isOpen:false,
-            onRequestClose:true
-    
+            isOpen: false,
+            onRequestClose: true
+
         })
     }
-     const LoaderOpen=()=>{
+    const LoaderOpen = () => {
         setLoader({
-            isOpen:true,
-            onRequestClose:""
+            isOpen: true,
+            onRequestClose: ""
         })
     }
     return (
@@ -59,7 +58,16 @@ const LoaderModal = (props) => {
             style={customStyles}
         >
             <div className="MsgDiv">
-                <LoaderDesign/>
+                <div>
+                    <div class="sk-chase">
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                    </div>
+                </div>
             </div>
         </ReactModal>
     )

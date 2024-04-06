@@ -5,15 +5,16 @@ import { FaPhone } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { CiEdit } from "react-icons/ci";
 import { CiHeart } from "react-icons/ci";
-import Loader from "../Loader/Loader";
 import { CiGlobe } from "react-icons/ci";
 import { useDispatch } from "react-redux";
-import { UserData, deleteUser } from "../../Reducers/UserReducer";
+import { UserData, deleteUser, blinkHeart } from "../../Reducers/UserReducer";
 import { useSelector } from "react-redux";
 import ReactModal from "react-modal";
 import LoaderModal from "../../LoaderModal/Loader";
 import UserForm from "../UserForm/UserForm";
 import Modal from "react-modal";
+import { TiHeartFullOutline } from "react-icons/ti";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -27,8 +28,24 @@ const customStyles = {
 const UserCard = () => {
   const [showLoader, SetShowLoader] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isFilled, setIsFilled] = useState([]);
+  const [editUser, setEditUser] = useState();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
+  console.log("users", users);
+  const handleDelete = (userId) => {
+    console.log("userId", userId);
+    dispatch(deleteUser(userId));
+  };
+
+  function openModal(user) {
+    setEditUser(user)
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
   useEffect(() => {
     SetShowLoader(true);
     const url = " https://jsonplaceholder.typicode.com/users";
@@ -41,26 +58,37 @@ const UserCard = () => {
     })
       .then((res) => res.json())
       .then((userData) => {
-        dispatch(UserData(userData));
+        console.log("userData----------------", userData);
+        const updatedUserData = userData.map((user) => {
+          return { ...user, HeartActive: false };
+        });
+        console.log("updatedUserData", updatedUserData);
+
+        dispatch(UserData(updatedUserData));
         SetShowLoader(false);
       });
   }, []);
 
-  const handleDelete = (userId) => {
-    console.log("userId", userId);
-    dispatch(deleteUser(userId));
-  };
+  // useEffect(() => {
+  //   // setShowLoader(true);
+  //   users.forEach((user) => {
+  //     const url = `https://avatars.dicebear.com/v2/avataaars/${user.username}.svg?options[mood][]=happy`;
+  //     console.log("url", url);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-  // function afterOpenModal(hi) {
-  //   // references are now sync'd and can be accessed.
-  //   hi.style.color = "#f00";
-  // }
-  function closeModal() {
-    setIsOpen(false);
-  }
+  //     fetch(url)
+  //       .then((res) => res.blob()) // Fetch the response as a blob
+  //       .then((blob) => {
+  //         const imageUrl = URL.createObjectURL(blob); // Create object URL for the blob
+  //         console.log("Image URL:", imageUrl);
+  //         // Here you can set the imageUrl in state or use it directly to render the avatar
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching avatar:", error);
+  //       });
+  //   });
+  //   // setShowLoader(false);
+  // }, []);
+  console.log("isFilled", isFilled)
   return (
     <div className="container">
       {users.map((user, id) => (
@@ -70,10 +98,13 @@ const UserCard = () => {
           </div>
           <div className="UserInfo">
             <div className="UserInfoSubDiv">
+              <div><b>{user.name}</b></div>
+            </div>
+            <div className="UserInfoSubDiv">
               <div>
                 <MdOutlineMail />
               </div>
-              <div>{user.username}</div>
+              <div>{user.email}</div>
             </div>
             <div className="UserInfoSubDiv">
               <div>
@@ -90,22 +121,27 @@ const UserCard = () => {
           </div>
           <div className="BottomDiv">
             <div className="BottomDivSubDiv">
-              <span>
-                <CiHeart />
-              </span>
-              <div className="verticleLine"></div>
+              {user.HeartActive ?
+                <TiHeartFullOutline
+                  className="cardHeart"
+                  onClick={() => dispatch(blinkHeart({ id: user.id, HeartActive: false }))}
+                />
+                :
+                <CiHeart
+                  className="cardHeart"
+                  onClick={() => dispatch(blinkHeart({ id: user.id, HeartActive: true }))}
+                />
+              }
+
             </div>
             <div className="BottomDivSubDiv">
-              <span>
-                <CiEdit onClick={openModal} />
-              </span>
+              <CiEdit onClick={() => openModal(user)} style={{ fontSize: '25px' }} />
               <div className="verticleLine"></div>
             </div>
-            <div className="BottomDivSubDiv">
+            <div className="BottomDivSubDiv_Delete">
               <span>
                 <FaRegTrashCan onClick={() => handleDelete(user.id)} />
               </span>
-              <div></div>
             </div>
           </div>
         </div>
@@ -118,11 +154,7 @@ const UserCard = () => {
         style={customStyles}
         contentLabel="Example Modal"
       >
-       <UserForm/>
-       <div style={{position:'relative',float:'right'}}> 
-       <button onClick={closeModal} className="ModalCancelBtn">cancel</button>&nbsp;
-       <button onClick={closeModal} className="ModalCloseBtn">close</button>
-       </div>
+        <UserForm data={editUser} closeModal={closeModal} />
       </Modal>
       <LoaderModal setLoader={showLoader} />
     </div>
