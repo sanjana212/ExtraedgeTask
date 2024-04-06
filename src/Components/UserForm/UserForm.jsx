@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import './UserForm.css';
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../Reducers/UserReducer";
+
+
 const UserForm = ({ data, closeModal }) => {
   const [editFormData, setEditFormData] = useState(data)
   const [errors, setErrors] = useState({});
@@ -33,7 +35,7 @@ const UserForm = ({ data, closeModal }) => {
     if (Object.keys(erros).length === 0) {
       // Do something with formData (e.g., submit to server)
       dispatch(updateUser(editFormData))
-      closeModal()
+      closeModal("updated")
     }
     ;
   }

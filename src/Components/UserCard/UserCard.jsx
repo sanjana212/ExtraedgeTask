@@ -9,12 +9,12 @@ import { CiGlobe } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import { UserData, deleteUser, blinkHeart } from "../../Reducers/UserReducer";
 import { useSelector } from "react-redux";
-import ReactModal from "react-modal";
 import LoaderModal from "../../LoaderModal/Loader";
 import UserForm from "../UserForm/UserForm";
 import Modal from "react-modal";
 import { TiHeartFullOutline } from "react-icons/ti";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const customStyles = {
   content: {
     top: "50%",
@@ -33,6 +33,16 @@ const UserCard = () => {
   const users = useSelector((state) => state.users);
   const handleDelete = (userId) => {
     dispatch(deleteUser(userId));
+    toast.info('User Is Deleted !', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   function openModal(user) {
@@ -40,8 +50,20 @@ const UserCard = () => {
     setIsOpen(true);
   }
 
-  function closeModal() {
+  function closeModal(Staus) {
     setIsOpen(false);
+    Staus == "updated" && toast.success('User Updated Successfully', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+
+    });
+
   }
   useEffect(() => {
     SetShowLoader(true);
@@ -139,6 +161,18 @@ const UserCard = () => {
         <UserForm data={editUser} closeModal={closeModal} />
       </Modal>
       <LoaderModal setLoader={showLoader} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };
