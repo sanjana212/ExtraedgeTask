@@ -28,13 +28,10 @@ const customStyles = {
 const UserCard = () => {
   const [showLoader, SetShowLoader] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isFilled, setIsFilled] = useState([]);
   const [editUser, setEditUser] = useState();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
-  console.log("users", users);
   const handleDelete = (userId) => {
-    console.log("userId", userId);
     dispatch(deleteUser(userId));
   };
 
@@ -69,31 +66,13 @@ const UserCard = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   users.forEach((user) => {
-  //     const url = `https://avatars.dicebear.com/v2/avataaars/${user.username}.svg?options[mood][]=happy`;
-  //     const UpdatedUrl = `https://api.dicebear.com/8.x/${user.username}/svg`
-  //     console.log("url", UpdatedUrl);
 
-  //     fetch(UpdatedUrl)
-  //       .then((res) => res.blob()) // Fetch the response as a blob
-  //       .then((blob) => {
-  //         const imageUrl = URL.createObjectURL(blob); // Create object URL for the blob
-  //         console.log("Image URL:", imageUrl);
-  //         // Here you can set the imageUrl in state or use it directly to render the avatar
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching avatar:", error);
-  //       });
-  //   });
-  // }, []);
-  console.log("isFilled", isFilled)
   return (
     <div className="container">
       {users.map((user, id) => (
         <div className="cardMain" key={user.id}>
           <div className="Avtar">
-            <img src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${user.name}`} alt="avtar" height={200} />
+            <img src={`https://api.dicebear.com/8.x/avataaars/svg?seed=${user.name}`} alt="avtar" height={200} style={{ width: "100%" }} />
           </div>
           <div className="UserInfo">
             <div className="UserInfoSubDiv">
@@ -134,7 +113,7 @@ const UserCard = () => {
 
             </div>
             <div className="BottomDivSubDiv">
-              <CiEdit onClick={() => openModal(user)} style={{ fontSize: '25px' }} className="ciEditHover" />
+              <CiEdit onClick={() => openModal(user)} className="ciEditHover" />
               <div className="verticleLine"></div>
             </div>
             <div className="BottomDivSubDiv_Delete">
