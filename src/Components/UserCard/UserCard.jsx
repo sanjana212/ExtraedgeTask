@@ -118,7 +118,7 @@ const UserCard = () => {
             </div>
             <div className="BottomDivSubDiv_Delete">
               <span>
-                <FaRegTrashCan onClick={() => handleDelete(user.id)} className="ciEditHover" />
+                <FaRegTrashCan onClick={() => handleDelete(user.id)} className="ciEditHover deleteIcon" />
               </span>
             </div>
           </div>

@@ -50,7 +50,13 @@ padding: 5px;
     color:  red;
     font-size: 25px;
     cursor: pointer;
-}     
+} 
+.ciEditHover{
+    font-size: 25px;
+} 
+.deleteIcon{
+    font-size: 18px !important;
+}   
 .ciEditHover:hover{
     color: rgb(67, 145, 175);
 } 
